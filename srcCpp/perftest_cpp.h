@@ -78,11 +78,11 @@ class perftest_cpp
     static const int OVERHEAD_BYTES = 28;
   #endif
     // Flag used to indicate message is used for initialization only
-    static const int INITIALIZE_SIZE = 1234;
+    static const int INITIALIZE_SIZE = 12;
     // Flag used to indicate end of test
-    static const int FINISHED_SIZE = 1235;
+    static const int FINISHED_SIZE = 13;
     // Flag used to data packet length is changing
-    static const int LENGTH_CHANGED_SIZE = 1236;
+    static const int LENGTH_CHANGED_SIZE = 14;
 
     /*
      * Value used to compare against to check if the latency_min has

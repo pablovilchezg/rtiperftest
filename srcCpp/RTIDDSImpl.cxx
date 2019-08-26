@@ -2181,12 +2181,15 @@ bool RTIDDSImpl<T>::configureDomainParticipantQos(DDS_DomainParticipantQos &qos)
 template <typename T>
 bool RTIDDSImpl<T>::Initialize(ParameterManager &PM, perftest_cpp *parent)
 {
+    fprintf(stderr, "8.0\n");
     // Assign ParameterManager
     _PM = &PM;
     _transport.initialize(_PM);
   #ifdef RTI_SECURE_PERFTEST
     _security.initialize(_PM);
   #endif
+
+  fprintf(stderr, "8.1\n");
 
     DDS_DomainParticipantQos qos;
     DDS_DomainParticipantFactoryQos factory_qos;
@@ -2203,6 +2206,8 @@ bool RTIDDSImpl<T>::Initialize(ParameterManager &PM, perftest_cpp *parent)
     _parent = parent;
     ThreadPriorities threadPriorities = _parent->get_thread_priorities();
 
+    fprintf(stderr, "8.2\n");
+
   #ifndef RTI_MICRO
     // Register _loggerDevice
     if (!NDDSConfigLogger::get_instance()->set_output_device(&_loggerDevice)) {
@@ -2210,6 +2215,8 @@ bool RTIDDSImpl<T>::Initialize(ParameterManager &PM, perftest_cpp *parent)
         return false;
     }
   #endif
+
+  fprintf(stderr, "8.3\n");
 
     _factory = DDSDomainParticipantFactory::get_instance();
 
@@ -2226,6 +2233,8 @@ bool RTIDDSImpl<T>::Initialize(ParameterManager &PM, perftest_cpp *parent)
     if (!configureDomainParticipantQos(qos)) {
         return false;
     }
+
+    fprintf(stderr, "8.4\n");
 
     // Creates the participant
     _participant = _factory->create_participant(
@@ -2255,6 +2264,8 @@ bool RTIDDSImpl<T>::Initialize(ParameterManager &PM, perftest_cpp *parent)
     }
   #endif
 
+  fprintf(stderr, "8.5\n");
+
   #ifndef RTI_MICRO
   #ifdef RTI_LEGACY_DD_IMPL
     // If we are using Dynamic Data, check if we want to use the new or old impl
@@ -2283,6 +2294,8 @@ bool RTIDDSImpl<T>::Initialize(ParameterManager &PM, perftest_cpp *parent)
         #endif
         }
     }
+
+    fprintf(stderr, "8.6\n");
 
 
   #ifndef RTI_MICRO
@@ -2320,6 +2333,8 @@ bool RTIDDSImpl<T>::Initialize(ParameterManager &PM, perftest_cpp *parent)
         return false;
     }
 
+    fprintf(stderr, "8.7\n");
+
   #ifndef RTI_MICRO
     _subscriber = _participant->create_subscriber_with_profile(
             _PM->get<std::string>("qosLibrary").c_str(),
@@ -2336,6 +2351,8 @@ bool RTIDDSImpl<T>::Initialize(ParameterManager &PM, perftest_cpp *parent)
         fprintf(stderr,"Problem creating subscriber.\n");
         return false;
     }
+
+    fprintf(stderr, "8.8\n");
 
     return true;
 }

@@ -121,8 +121,11 @@ int perftest_cpp_main(char *args)
 
 int perftest_cpp::Run(int argc, char *argv[])
 {
+    fprintf(stderr, "0\n");
     unsigned short mask;
     PrintVersion();
+
+    fprintf(stderr, "1\n");
 
     try {
         _PM.initialize();
@@ -130,23 +133,39 @@ int perftest_cpp::Run(int argc, char *argv[])
         fprintf(stderr, "Exception in _PM.initialize(): %s.\n", ex.what());
         return -1;
     }
+
+    fprintf(stderr, "2\n");
+
     if (_PM.check_help(argc, argv)) {
         return 0;
     }
+
+    fprintf(stderr, "3\n");
+
     if (!_PM.parse(argc, argv)) {
         return -1;
     }
+
+    fprintf(stderr, "4\n");
+
     if (!_PM.check_incompatible_parameters()) {
         return -1;
     }
+
+    fprintf(stderr, "5\n");
+
     if (!validate_input()) {
         return -1;
     }
+
+    fprintf(stderr, "6\n");
 
     if (_threadPriorities.isSet
             && !_threadPriorities.set_main_thread_priority()) {
         return -1;
     }
+
+    fprintf(stderr, "7\n");
 
     if (_PM.get<bool>("rawTransport")) {
       #ifndef RTI_MICRO
@@ -216,11 +235,17 @@ int perftest_cpp::Run(int argc, char *argv[])
         }
     }
 
+    fprintf(stderr, "8\n");
+
     if (!_MessagingImpl->Initialize(_PM, this)) {
         return -1;
     }
 
+    fprintf(stderr, "9\n");
+
     PrintConfiguration();
+
+    fprintf(stderr, "10\n");
 
     if (_PM.get<bool>("pub")) {
         return Publisher();
